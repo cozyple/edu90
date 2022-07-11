@@ -1,32 +1,31 @@
 package com.edu.queue;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 public class MsgQueue {
     private int size;
     private int seqNo;
 
     // id - (status, msg)
-    private LinkedHashMap<Integer, List<String>> hashMsg; 
+    private LinkedHashMap<String, Message> hashMsg; 
 
     public MsgQueue(int size)
     {
         this.size = size;
         this.seqNo = 0;
-        hashMsg = new LinkedHashMap<Integer, List<String>>();
+        hashMsg = new LinkedHashMap<String, Message>();
     }
 
     public String MsgEnqueue(String msg)
     {
         if (hashMsg.size() == size)
             return "Queue Full";
+        
+        String messageId = "ID_" + Thread.currentThread().getId() + seqNo++;
 
-        List<String> listMsg = new ArrayList<String>();
-        listMsg.add("A"); // status : available
-        listMsg.add(msg); // message
-        hashMsg.put(seqNo++, listMsg);
+        Message msgMap = new Message(messageId, msg);
+        msgMap.setStatus("A"); // status : available
+        hashMsg.put(messageId, msgMap);
 
         return "Enqueued";
     }
@@ -36,9 +35,23 @@ public class MsgQueue {
         if (hashMsg.size() == 0)
             return "Queue Empty";
 
-        int key = (int)hashMsg.keySet().iterator().next();
+        String key = hashMsg.keySet().iterator().next();
         
-        String res = hashMsg.get(key).get(1) + "(" + key + ")";
+        String res = hashMsg.get(key).getMessage() + "(" + key + ")";
+
+        hashMsg.remove(key);
+
+        return res;
+    }
+    
+    public Message dequeue()
+    {
+        if (hashMsg.size() == 0)
+            return null;
+
+        String key = hashMsg.keySet().iterator().next();
+        
+        Message res = hashMsg.get(key);
 
         hashMsg.remove(key);
 
@@ -48,27 +61,27 @@ public class MsgQueue {
     public String MsgGet()
     {
         if (hashMsg.size() > 0)
-            for(Integer key : hashMsg.keySet())
+            for(String key : hashMsg.keySet())
             {
-                if (hashMsg.get(key).get(0).equals("A"))
+                if (hashMsg.get(key).getStatus().equals("A"))
                 {
-                	List<String> val = hashMsg.get(key);
-                	val.set(0, "U");
+                	Message val = hashMsg.get(key);
+                	val.setStatus("U");
                     hashMsg.put(key, val); 
-                    return val.get(1) + "(" + key + ")";
+                    return val.getMessage();
                 }
             }
 
         return "No Msg";
     }
 
-    public String MsgSet(int id)
+    public String MsgSet(int msgid)
     {
         if (hashMsg.size() > 0)
         {
-            if (hashMsg.containsKey(id))
+            if (hashMsg.containsKey(msgid))
             {
-                hashMsg.get(id).set(0, "A");  
+                hashMsg.get(msgid).setStatus("A");  
                 return "Msg Set";
             }
         }
