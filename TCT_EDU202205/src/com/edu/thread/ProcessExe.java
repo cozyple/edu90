@@ -1,4 +1,4 @@
-package com.lgcns.test;
+package com.edu.thread;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,7 +12,7 @@ import java.util.List;
 public class ProcessExe {
 	
 	public static void main(String[] args) throws IOException, InterruptedException {		
-		System.out.println(String.format("Start - " + new Date().toString())); // ÇöÀç½Ã°¢Ãâ·Â
+		System.out.println(String.format("Start - " + new Date().toString())); // ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 		
 		FileReader fileReader = new FileReader("NUM.TXT");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -33,11 +33,11 @@ public class ProcessExe {
         {
         	th.join();
         }
-		System.out.println("End - " + new Date().toString()); // ÇöÀç½Ã°¢Ãâ·Â
+		System.out.println("End - " + new Date().toString()); // ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 	}
 }
 
-class ProcessThread extends Thread { // 'Thread' Class¸¦ »ó¼Ó¹Þ´Â´Ù 
+class ProcessThread extends Thread { // 'Thread' Classï¿½ï¿½ ï¿½ï¿½Ó¹Þ´Â´ï¿½ 
 	int num1;
 	int num2;
     public ProcessThread(int n1, int n2) { 

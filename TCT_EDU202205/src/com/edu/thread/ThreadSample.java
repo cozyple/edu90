@@ -1,6 +1,8 @@
-class ThreadClass extends Thread { // 'Thread' Class¸¦ »ó¼Ó¹Þ´Â´Ù 
+package com.edu.thread;
+
+class ThreadClass1 extends Thread { // 'Thread' Classï¿½ï¿½ ï¿½ï¿½Ó¹Þ´Â´ï¿½ 
     String thread_name; 
-    public ThreadClass(String name) { 
+    public ThreadClass1(String name) { 
         this.thread_name = name; 
     } 
 
@@ -16,8 +18,8 @@ class ThreadClass extends Thread { // 'Thread' Class¸¦ »ó¼Ó¹Þ´Â´Ù
 
 public class ThreadSample { 
     public static void main(String[] args) throws InterruptedException { 
-        ThreadClass tc1 = new ThreadClass("[Thread1] ");
-        ThreadClass tc2 = new ThreadClass("[Thread2] ");
+        ThreadClass1 tc1 = new ThreadClass1("[Thread1] ");
+        ThreadClass1 tc2 = new ThreadClass1("[Thread2] ");
         tc1.start(); 
         tc2.start();
 

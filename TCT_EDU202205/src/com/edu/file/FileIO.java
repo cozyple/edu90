@@ -13,6 +13,7 @@ public class FileIO {
 		FileSearchAll(rootPath);
 	}
 
+	//파일 디렉터리에서 서치 (재귀)
     public static void FileSearchAll(String path)
     {
     	File directory = new File(path);
@@ -32,6 +33,7 @@ public class FileIO {
 	    }
     }
     
+    // 파일 복사
     public static void MyCopyFile(String partPath, String filename)
 	{
 		final int BUFFER_SIZE = 512;
